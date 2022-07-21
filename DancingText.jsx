@@ -9,7 +9,6 @@ var myResult = myDialog.show();
 if(myResult == true){
     var myPointSize = myPointSizeField.editValue;
     myDialog.destroy();
-    myMakeDocument(myPointSize);
 }
 else{
     myDialog.destroy();
