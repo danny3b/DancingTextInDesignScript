@@ -1,4 +1,3 @@
-
 var myDialog = app.dialogs.add({name:"Enter baseline shift",canCancel:true});
 with(myDialog){
     with(dialogColumns.add()){
@@ -17,11 +16,21 @@ else{
 var sel = app.selection;
 if(sel.length) {
     for(a = 0; a < sel.length; a++) {
-        var frame = sel[a];
-        if(frame.constructor.name == 'TextFrame') {
-            for (var i = 0; i < frame.parentStory.characters.length; i += 2) {
-                frame.parentStory.characters[i].baselineShift = myPointSize;
+        var item = sel[a];
+        switch (item.constructor.name) {
+            case "TextFrame":
+            case "Paragraph":
+            for (var i = 0; i < item.parentStory.characters.length; i += 2) {
+                item.parentStory.characters[i].baselineShift = myPointSize;
             }
+            
+            break;
+            case "Polygon":
+            for (var i = 0; i < item.textPaths[0].characters.length; i += 2) {
+                item.textPaths[0].characters[i].baselineShift = myPointSize;
+            }
+            break;
         }
+
     }
 }
